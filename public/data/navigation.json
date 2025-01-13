@@ -32,11 +32,25 @@
     },
     {
       "name": "测试分类",
-      "description": "",
-      "id": "3ht4xt5j2"
+      "description": "测试描述",
+      "id": "lw6d4deb6"
     }
   ],
   "links": [
+    {
+      "title": "百度2",
+      "url": "https://www.baidu.com",
+      "description": "",
+      "category": "lw6d4deb6",
+      "id": "soc5tx6ui"
+    },
+    {
+      "title": "百度",
+      "url": "https://www.baidu.com",
+      "description": "",
+      "category": "lw6d4deb6",
+      "id": "q3mgvz6nu"
+    },
     {
       "id": "vscode",
       "title": "VS Code",
@@ -228,13 +242,6 @@
       "description": "发现新产品的平台",
       "category": "community",
       "icon": "producthunt"
-    },
-    {
-      "title": "百度",
-      "url": "https://www.baidu.com",
-      "description": "",
-      "category": "3ht4xt5j2",
-      "id": "bfr4hq7wv"
     }
   ]
 }
