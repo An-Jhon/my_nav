@@ -1,0 +1,90 @@
+{
+  "categories": [
+    {
+      "id": "tools",
+      "name": "常用工具",
+      "description": "日常使用的工具网站"
+    },
+    {
+      "id": "resources",
+      "name": "学习资源",
+      "description": "编程学习资源网站"
+    },
+    {
+      "id": "design",
+      "name": "设计资源",
+      "description": "设计相关的资源网站"
+    },
+    {
+      "id": "ai",
+      "name": "AI 工具",
+      "description": "人工智能相关工具"
+    }
+  ],
+  "links": [
+    {
+      "id": "github",
+      "title": "GitHub",
+      "url": "https://github.com",
+      "description": "全球最大的代码托管平台",
+      "category": "tools",
+      "icon": "github"
+    },
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "description": "最全面的 Web 开发文档",
+      "category": "resources",
+      "icon": "mdn"
+    },
+    {
+      "id": "figma",
+      "title": "Figma",
+      "url": "https://www.figma.com",
+      "description": "专业的在线设计工具",
+      "category": "design",
+      "icon": "figma"
+    },
+    {
+      "id": "chatgpt",
+      "title": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "description": "OpenAI 开发的 AI 聊天助手",
+      "category": "ai",
+      "icon": "openai"
+    },
+    {
+      "id": "stackoverflow",
+      "title": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "description": "程序员问答社区",
+      "category": "resources",
+      "icon": "stackoverflow"
+    },
+    {
+      "id": "vscode",
+      "title": "VS Code",
+      "url": "https://code.visualstudio.com",
+      "description": "微软开发的代码编辑器",
+      "category": "tools",
+      "icon": "vscode"
+    },
+    {
+      "id": "dribbble",
+      "title": "Dribbble",
+      "url": "https://dribbble.com",
+      "description": "设计师作品分享平台",
+      "category": "design",
+      "icon": "dribbble"
+    },
+    {
+      "id": "midjourney",
+      "title": "Midjourney",
+      "url": "https://www.midjourney.com",
+      "description": "AI 图像生成工具",
+      "category": "ai",
+      "icon": "midjourney"
+    }
+  ]
+} 

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 拖拽相关样式 */
+[draggable] {
+  user-select: none;
+}
+
+[draggable]:active {
+  cursor: grabbing;
+}
+
+/* 只在拖拽手柄上禁用指针事件 */
+[draggable] .drag-handle * {
+  pointer-events: none;
+}
+
+/* 优化拖拽时的性能 */
+.dragging {
+  cursor: grabbing !important;
+  pointer-events: none;
+}
+
+/* 优化拖拽时的性能 */
+.dragging * {
+  pointer-events: none;
+}
+
+/* 拖拽时的过渡效果 */
+.transition-drag {
+  transition: transform 0.2s ease-in-out;
+}
+
+/* 确保拖拽项目在其他内容之上 */
+[data-rbd-draggable-context-id] {
+  z-index: 50;
+} 

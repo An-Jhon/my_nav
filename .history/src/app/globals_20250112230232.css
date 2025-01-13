@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 拖拽相关样式 */
+[draggable] {
+  user-select: none;
+  -webkit-user-drag: element;
+}
+
+[draggable]:active {
+  cursor: grabbing;
+}
+
+[draggable] * {
+  pointer-events: none;
+}
+
+/* 优化拖拽时的性能 */
+.dragging {
+  cursor: grabbing !important;
+}
+
+/* 拖拽时的过渡效果 */
+.transition-drag {
+  transition: transform 0.2s ease-in-out;
+} 

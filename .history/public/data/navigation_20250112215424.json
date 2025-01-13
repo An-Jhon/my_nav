@@ -1,0 +1,30 @@
+{
+  "categories": [
+    {
+      "id": "tools",
+      "name": "常用工具",
+      "description": "日常使用的工具网站"
+    },
+    {
+      "id": "resources",
+      "name": "学习资源",
+      "description": "编程学习资源网站"
+    }
+  ],
+  "links": [
+    {
+      "id": "github",
+      "title": "GitHub",
+      "url": "https://github.com",
+      "description": "全球最大的代码托管平台",
+      "category": "tools"
+    },
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "description": "最全面的 Web 开发文档",
+      "category": "resources"
+    }
+  ]
+} 
