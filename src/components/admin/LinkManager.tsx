@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { NavLink, NavCategory } from '@/types'
+import type { NavLink, NavCategory } from '@/types'
 
 interface LinkManagerProps {
   links: NavLink[]

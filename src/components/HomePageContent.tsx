@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { NavLink } from '@/types'
+import type { NavLink } from '@/types'
 import SearchBar from './SearchBar'
 import LinkCard from './LinkCard'
 

@@ -1,5 +1,5 @@
 'use client'
-import { NavLink } from '@/types'
+import type { NavLink } from '@/types'
 import { getFaviconUrl } from '@/utils/favicon'
 import FavoriteButton from './FavoriteButton'
 

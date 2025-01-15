@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { NavCategory } from '@/types'
+import type { NavCategory } from '@/types'
 import { FolderIcon, BookmarkIcon, AcademicCapIcon, BeakerIcon, CodeBracketIcon, CommandLineIcon, CpuChipIcon, WrenchIcon, GlobeAltIcon, LinkIcon, DocumentIcon, DocumentTextIcon, CloudIcon, ServerIcon, ShieldCheckIcon, CubeIcon, RocketLaunchIcon, PuzzlePieceIcon, LightBulbIcon, FireIcon, HashtagIcon, QueueListIcon, WindowIcon, Square3Stack3DIcon, CircleStackIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, VideoCameraIcon, ArchiveBoxIcon, BoltIcon, BuildingLibraryIcon, CalculatorIcon, CalendarIcon, ChartBarIcon, ChatBubbleLeftIcon, ClockIcon, CloudArrowUpIcon, CogIcon, CurrencyDollarIcon, EnvelopeIcon, FilmIcon, FingerPrintIcon, GiftIcon, HeartIcon, HomeIcon, InboxIcon, KeyIcon, LanguageIcon, MapIcon, MegaphoneIcon, MicrophoneIcon, MusicalNoteIcon, NewspaperIcon, PaintBrushIcon, PhotoIcon, PrinterIcon, QrCodeIcon, QuestionMarkCircleIcon, RadioIcon, ScaleIcon, ShoppingBagIcon, ShoppingCartIcon, SignalIcon, SpeakerWaveIcon, StarIcon, SunIcon, TableCellsIcon, TagIcon, TicketIcon, TrophyIcon, TvIcon, UserGroupIcon, UserIcon, UsersIcon, WifiIcon, WrenchScrewdriverIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import IconSelect from './IconSelect'
 
