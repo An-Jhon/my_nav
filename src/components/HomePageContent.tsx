@@ -6,9 +6,11 @@ import LinkCard from './LinkCard'
 
 interface HomePageProps {
   links: NavLink[]
+  onToggleFavorite: (id: string) => void
+  favorites: Set<string>
 }
 
-export default function HomePageContent({ links }: HomePageProps) {
+export default function HomePageContent({ links, onToggleFavorite, favorites }: HomePageProps) {
   const [searchResults, setSearchResults] = useState<NavLink[]>([])
   const [isSearching, setIsSearching] = useState(false)
 
@@ -26,18 +28,28 @@ export default function HomePageContent({ links }: HomePageProps) {
         {isSearching ? (
           <div>
             <h2 className="text-lg font-medium text-gray-900 mb-4">搜索结果</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
               {searchResults.map(link => (
-                <LinkCard key={link.id} link={link} />
+                <LinkCard 
+                  key={link.id} 
+                  link={link} 
+                  onToggleFavorite={onToggleFavorite}
+                  isFavorite={favorites.has(link.id)}
+                />
               ))}
             </div>
           </div>
         ) : (
           <div>
             <h2 className="text-lg font-medium text-gray-900 mb-4">推荐网站</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {links.slice(0, 6).map(link => (
-                <LinkCard key={link.id} link={link} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+              {links.slice(0, 10).map(link => (
+                <LinkCard 
+                  key={link.id} 
+                  link={link}
+                  onToggleFavorite={onToggleFavorite}
+                  isFavorite={favorites.has(link.id)}
+                />
               ))}
             </div>
           </div>

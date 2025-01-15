@@ -3,37 +3,44 @@
     {
       "id": "tools",
       "name": "常用工具",
-      "description": "日常使用的工具网站"
+      "description": "日常使用的工具网站",
+      "icon": "WrenchIcon"
     },
     {
       "id": "resources",
       "name": "学习资源",
-      "description": "编程学习资源网站"
+      "description": "编程学习资源网站",
+      "icon": "AcademicCapIcon"
     },
     {
       "id": "design",
       "name": "设计资源",
-      "description": "设计相关的资源网站"
+      "description": "设计相关的资源网站",
+      "icon": "CogIcon"
     },
     {
       "id": "ai",
       "name": "AI 工具",
-      "description": "人工智能相关工具"
+      "description": "人工智能相关工具",
+      "icon": "LightBulbIcon"
     },
     {
       "id": "dev",
       "name": "开发工具",
-      "description": "开发者常用工具"
+      "description": "开发者常用工具",
+      "icon": "CommandLineIcon"
     },
     {
       "id": "community",
       "name": "技术社区",
-      "description": "程序员交流社区"
+      "description": "程序员交流社区",
+      "icon": "UserGroupIcon"
     },
     {
+      "id": "lw6d4deb6",
       "name": "测试分类",
       "description": "测试描述",
-      "id": "lw6d4deb6"
+      "icon": "WrenchScrewdriverIcon"
     }
   ],
   "links": [

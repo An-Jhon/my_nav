@@ -94,6 +94,16 @@ export default function DashboardPage() {
   // 添加处理添加分类的函数
   const handleAddCategory = async (category: Omit<NavCategory, 'id'>) => {
     try {
+      // 检查分类名称是否已存在
+      const nameExists = categories.some(
+        existingCategory => existingCategory.name.toLowerCase() === category.name.toLowerCase()
+      )
+      
+      if (nameExists) {
+        showMessage('error', '分类名称已存在')
+        return
+      }
+
       const response = await fetch('/api/categories', {
         method: 'POST',
         headers: {
@@ -139,56 +149,61 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {message && (
-        <div className={`mb-4 p-4 rounded-md ${
-          message.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-        }`}>
-          {message.text}
-        </div>
-      )}
+    <div className="min-h-screen bg-gray-50">
+      {/* 主要内容区域 */}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {message && (
+          <div className={`mb-4 p-4 rounded-lg ${
+            message.type === 'success' 
+              ? 'bg-purple-50 text-purple-800 border border-purple-200' 
+              : 'bg-red-50 text-red-800 border border-red-200'
+          }`}>
+            {message.text}
+          </div>
+        )}
 
-      {/* 删除确认弹窗 */}
-      {deleteConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">
-              确认删除
-            </h3>
-            <p className="text-sm text-gray-500 mb-4">
-              该分类下有 {deleteConfirm.linksCount} 个网址。是否同时删除这些网址？
-            </p>
-            <div className="flex justify-end space-x-4">
-              <button
-                onClick={() => setDeleteConfirm(null)}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
-              >
-                取消
-              </button>
-              <button
-                onClick={() => deleteCategoryAndLinks(deleteConfirm.categoryId, false)}
-                className="px-4 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 rounded-md"
-              >
-                仅删除分类
-              </button>
-              <button
-                onClick={() => deleteCategoryAndLinks(deleteConfirm.categoryId, true)}
-                className="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md"
-              >
-                全部删除
-              </button>
+        <div className="bg-white shadow-sm rounded-lg p-6">
+          <CategoryManager
+            categories={categories}
+            onAdd={handleAddCategory}
+            onUpdate={handleUpdateCategory}
+            onDelete={handleDeleteCategory}
+          />
+        </div>
+
+        {/* 删除确认弹窗 */}
+        {deleteConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+              <h3 className="text-lg font-medium text-gray-900 mb-4">
+                确认删除
+              </h3>
+              <p className="text-sm text-gray-500 mb-4">
+                该分类下有 {deleteConfirm.linksCount} 个网址。是否同时删除这些网址？
+              </p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={() => setDeleteConfirm(null)}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-md"
+                >
+                  取消
+                </button>
+                <button
+                  onClick={() => deleteCategoryAndLinks(deleteConfirm.categoryId, false)}
+                  className="px-4 py-2 text-sm font-medium text-purple-600 hover:bg-purple-50 rounded-md"
+                >
+                  仅删除分类
+                </button>
+                <button
+                  onClick={() => deleteCategoryAndLinks(deleteConfirm.categoryId, true)}
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#7E57C2] hover:bg-[#6A45B0] rounded-md"
+                >
+                  全部删除
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      <div className="bg-white shadow rounded-lg p-6">
-        <CategoryManager
-          categories={categories}
-          onAdd={handleAddCategory}
-          onUpdate={handleUpdateCategory}
-          onDelete={handleDeleteCategory}
-        />
+        )}
       </div>
     </div>
   )

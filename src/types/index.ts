@@ -13,6 +13,7 @@ export interface NavCategory {
   id: string;
   name: string;
   description?: string;
+  icon?: string;
 }
 
 // 完整的导航数据类型

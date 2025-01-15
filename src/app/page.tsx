@@ -5,8 +5,112 @@ import { getFaviconUrl } from '@/utils/favicon'
 import DefaultIcon from '@/components/DefaultIcon'
 import ResizeHandle from '@/components/ResizeHandle'
 import FavoriteButton from '@/components/FavoriteButton'
+import LinkCard from '@/components/LinkCard'
 import type { NavData, NavLink } from '@/types'
 import HomePageContent from '@/components/HomePageContent'
+import { 
+  FolderIcon, BookmarkIcon, AcademicCapIcon, BeakerIcon, 
+  CodeBracketIcon, CommandLineIcon, CpuChipIcon, WrenchIcon,
+  GlobeAltIcon, LinkIcon, DocumentIcon, DocumentTextIcon,
+  CloudIcon, ServerIcon, ShieldCheckIcon, CubeIcon,
+  RocketLaunchIcon, PuzzlePieceIcon, LightBulbIcon, FireIcon,
+  HashtagIcon, QueueListIcon, WindowIcon, Square3Stack3DIcon,
+  CircleStackIcon, ComputerDesktopIcon, DevicePhoneMobileIcon,
+  VideoCameraIcon, ArchiveBoxIcon, BoltIcon, BuildingLibraryIcon,
+  CalculatorIcon, CalendarIcon, ChartBarIcon, ChatBubbleLeftIcon,
+  ClockIcon, CloudArrowUpIcon, CogIcon, CurrencyDollarIcon,
+  EnvelopeIcon, FilmIcon, FingerPrintIcon, GiftIcon,
+  HeartIcon, HomeIcon, InboxIcon, KeyIcon,
+  LanguageIcon, MapIcon, MegaphoneIcon, MicrophoneIcon,
+  MusicalNoteIcon, NewspaperIcon, PaintBrushIcon, PhotoIcon,
+  PrinterIcon, QrCodeIcon, QuestionMarkCircleIcon, RadioIcon,
+  ScaleIcon, ShoppingBagIcon, ShoppingCartIcon, SignalIcon,
+  SpeakerWaveIcon, StarIcon, SunIcon, TableCellsIcon,
+  TagIcon, TicketIcon, TrophyIcon, TvIcon,
+  UserGroupIcon, UserIcon, UsersIcon, WifiIcon,
+  WrenchScrewdriverIcon, XMarkIcon
+} from '@heroicons/react/24/outline'
+
+// 图标映射对象
+const iconMap: { [key: string]: React.ComponentType } = {
+  'FolderIcon': FolderIcon,
+  'BookmarkIcon': BookmarkIcon,
+  'AcademicCapIcon': AcademicCapIcon,
+  'BeakerIcon': BeakerIcon,
+  'CodeBracketIcon': CodeBracketIcon,
+  'CommandLineIcon': CommandLineIcon,
+  'CpuChipIcon': CpuChipIcon,
+  'WrenchIcon': WrenchIcon,
+  'GlobeAltIcon': GlobeAltIcon,
+  'LinkIcon': LinkIcon,
+  'DocumentIcon': DocumentIcon,
+  'DocumentTextIcon': DocumentTextIcon,
+  'CloudIcon': CloudIcon,
+  'ServerIcon': ServerIcon,
+  'ShieldCheckIcon': ShieldCheckIcon,
+  'CubeIcon': CubeIcon,
+  'RocketLaunchIcon': RocketLaunchIcon,
+  'PuzzlePieceIcon': PuzzlePieceIcon,
+  'LightBulbIcon': LightBulbIcon,
+  'FireIcon': FireIcon,
+  'HashtagIcon': HashtagIcon,
+  'QueueListIcon': QueueListIcon,
+  'WindowIcon': WindowIcon,
+  'Square3Stack3DIcon': Square3Stack3DIcon,
+  'CircleStackIcon': CircleStackIcon,
+  'ComputerDesktopIcon': ComputerDesktopIcon,
+  'DevicePhoneMobileIcon': DevicePhoneMobileIcon,
+  'VideoCameraIcon': VideoCameraIcon,
+  'ArchiveBoxIcon': ArchiveBoxIcon,
+  'BoltIcon': BoltIcon,
+  'BuildingLibraryIcon': BuildingLibraryIcon,
+  'CalculatorIcon': CalculatorIcon,
+  'CalendarIcon': CalendarIcon,
+  'ChartBarIcon': ChartBarIcon,
+  'ChatBubbleLeftIcon': ChatBubbleLeftIcon,
+  'ClockIcon': ClockIcon,
+  'CloudArrowUpIcon': CloudArrowUpIcon,
+  'CogIcon': CogIcon,
+  'CurrencyDollarIcon': CurrencyDollarIcon,
+  'EnvelopeIcon': EnvelopeIcon,
+  'FilmIcon': FilmIcon,
+  'FingerPrintIcon': FingerPrintIcon,
+  'GiftIcon': GiftIcon,
+  'HeartIcon': HeartIcon,
+  'HomeIcon': HomeIcon,
+  'InboxIcon': InboxIcon,
+  'KeyIcon': KeyIcon,
+  'LanguageIcon': LanguageIcon,
+  'MapIcon': MapIcon,
+  'MegaphoneIcon': MegaphoneIcon,
+  'MicrophoneIcon': MicrophoneIcon,
+  'MusicalNoteIcon': MusicalNoteIcon,
+  'NewspaperIcon': NewspaperIcon,
+  'PaintBrushIcon': PaintBrushIcon,
+  'PhotoIcon': PhotoIcon,
+  'PrinterIcon': PrinterIcon,
+  'QrCodeIcon': QrCodeIcon,
+  'QuestionMarkCircleIcon': QuestionMarkCircleIcon,
+  'RadioIcon': RadioIcon,
+  'ScaleIcon': ScaleIcon,
+  'ShoppingBagIcon': ShoppingBagIcon,
+  'ShoppingCartIcon': ShoppingCartIcon,
+  'SignalIcon': SignalIcon,
+  'SpeakerWaveIcon': SpeakerWaveIcon,
+  'StarIcon': StarIcon,
+  'SunIcon': SunIcon,
+  'TableCellsIcon': TableCellsIcon,
+  'TagIcon': TagIcon,
+  'TicketIcon': TicketIcon,
+  'TrophyIcon': TrophyIcon,
+  'TvIcon': TvIcon,
+  'UserGroupIcon': UserGroupIcon,
+  'UserIcon': UserIcon,
+  'UsersIcon': UsersIcon,
+  'WifiIcon': WifiIcon,
+  'WrenchScrewdriverIcon': WrenchScrewdriverIcon,
+  'XMarkIcon': XMarkIcon
+}
 
 export default function HomePage() {
   const [data, setData] = useState<NavData>({ categories: [], links: [] })
@@ -14,6 +118,8 @@ export default function HomePage() {
   const [currentCategory, setCurrentCategory] = useState<string>('')
   const [sidebarWidth, setSidebarWidth] = useState(200)
   const [favorites, setFavorites] = useState<Set<string>>(new Set())
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<NavLink[]>([])
 
   useEffect(() => {
     const savedFavorites = localStorage.getItem('favorites')
@@ -125,7 +231,13 @@ export default function HomePage() {
   // 渲染主内容区域
   const renderMainContent = () => {
     if (currentCategory === 'home') {
-      return <HomePageContent links={data.links} />
+      return (
+        <HomePageContent 
+          links={data.links} 
+          onToggleFavorite={handleToggleFavorite}
+          favorites={favorites}
+        />
+      )
     }
 
     // 原有的分类内容渲染逻辑
@@ -193,6 +305,19 @@ export default function HomePage() {
     )
   }
 
+  const handleSearch = (query: string) => {
+    if (!query.trim()) {
+      setSearchResults([])
+      return
+    }
+
+    const results = data.links.filter(link => 
+      link.title.toLowerCase().includes(query.toLowerCase()) ||
+      link.description?.toLowerCase().includes(query.toLowerCase())
+    )
+    setSearchResults(results)
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -202,65 +327,158 @@ export default function HomePage() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      <aside style={{ width: sidebarWidth }} className="flex-shrink-0 bg-white border-r border-gray-200">
-        <nav className="sticky top-0 p-4">
-          <button
-            onClick={() => setCurrentCategory('home')}
-            className="text-2xl font-bold text-gray-800 mb-6 px-2 hover:text-blue-600 transition-colors w-full text-left"
-          >
-            阿白导航
-          </button>
-          <ul className="space-y-2">
-            <li>
+    <div className="min-h-screen flex flex-col">
+      {/* 顶部导航栏 */}
+      <header className="bg-[#7E57C2] text-white shadow-md fixed w-full z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <button 
+                onClick={() => {
+                  setCurrentCategory('home')
+                  setSearchQuery('')
+                  setSearchResults([])
+                }}
+                className="text-3xl font-bold hover:text-purple-200 transition-colors cursor-pointer"
+              >
+                要你命三千
+              </button>
+            </div>
+            <nav className="flex space-x-4">
+              <button 
+                onClick={() => {
+                  setCurrentCategory('home')
+                  // 滚动到搜索框位置
+                  const searchInput = document.querySelector('.search-input')
+                  if (searchInput) {
+                    searchInput.scrollIntoView({ behavior: 'smooth' })
+                    ;(searchInput as HTMLInputElement).focus()
+                  }
+                }}
+                className="p-2 rounded-full hover:bg-purple-600 transition-colors flex items-center justify-center"
+                title="搜索"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* 主体内容区域 */}
+      <div className="flex pt-16"> {/* 添加 pt-16 为顶部导航栏留出空间 */}
+        {/* 左侧分类导航 */}
+        <aside className="w-56 bg-white shadow-md fixed h-[calc(100vh-4rem)] overflow-y-auto"> {/* 从 w-64 改为 w-56 */}
+          <nav className="p-4">
+            <div className="space-y-2">
               <button
                 onClick={() => setCurrentCategory('favorites')}
                 className={`
-                  w-full text-left px-3 py-2 rounded-md text-base transition-colors
+                  w-full text-left px-3 py-2 rounded-md text-base transition-colors flex items-center
                   ${currentCategory === 'favorites'
-                    ? 'bg-blue-50 text-blue-600 font-medium'
+                    ? 'bg-purple-50 text-purple-600 font-medium'
                     : 'text-gray-600 hover:bg-gray-50'
                   }
                 `}
               >
-                <span className="flex items-center">
-                  我的收藏
-                  <span className="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
-                    {getCategoryLinkCount('favorites')}
-                  </span>
+                <StarIcon className="w-5 h-5 mr-2" />
+                <span>我的收藏</span>
+                <span className="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
+                  {getCategoryLinkCount('favorites')}
                 </span>
               </button>
-            </li>
-            {data.categories.map(category => (
-              <li key={category.id}>
-                <button
-                  onClick={() => setCurrentCategory(category.id)}
-                  className={`
-                    w-full text-left px-3 py-2 rounded-md text-base transition-colors
-                    ${currentCategory === category.id
-                      ? 'bg-blue-50 text-blue-600 font-medium'
-                      : 'text-gray-600 hover:bg-gray-50'
-                    }
-                  `}
-                >
-                  <span className="flex items-center">
-                    {category.name}
+              {data.categories.map(category => {
+                // 使用默认图标作为后备方案
+                const IconComponent = category.icon && iconMap[category.icon] ? iconMap[category.icon] : FolderIcon
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => setCurrentCategory(category.id)}
+                    className={`
+                      w-full text-left px-3 py-2 rounded-md text-base transition-colors flex items-center
+                      ${currentCategory === category.id
+                        ? 'bg-purple-50 text-purple-600 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                      }
+                    `}
+                  >
+                    <IconComponent className="w-5 h-5 mr-2" />
+                    <span>{category.name}</span>
                     <span className="ml-auto text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">
                       {getCategoryLinkCount(category.id)}
                     </span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </aside>
+                  </button>
+                )
+              })}
+            </div>
+          </nav>
+        </aside>
 
-      <ResizeHandle onResize={setSidebarWidth} />
+        {/* 主内容区域 */}
+        <main className="flex-1 ml-56"> {/* 从 ml-64 改为 ml-56 */}
+          {currentCategory === 'home' ? (
+            <>
+              {/* 搜索区域 - 仅在首页显示 */}
+              <div className="pt-20 pb-32 px-4">
+                <div className="max-w-4xl mx-auto text-center">
+                  <h1 className="text-4xl font-bold text-gray-900 mb-8">搜索导航</h1>
+                  <div className="max-w-2xl mx-auto">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value)
+                          handleSearch(e.target.value)
+                        }}
+                        placeholder="请输入关键词搜索..."
+                        className="search-input w-full px-4 py-3 rounded-full border-2 border-purple-200 focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 text-lg"
+                      />
+                      <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                        <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            // 分类页面不显示搜索框，添加一些上边距
+            <div className="pt-8" />
+          )}
 
-      <main className="flex-1 overflow-auto">
-        {renderMainContent()}
-      </main>
+          {/* 网站展示区域 */}
+          <div className="max-w-7xl mx-auto px-4 pb-12">
+            {searchQuery ? (
+              <>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">搜索结果</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {searchResults.map(link => (
+                    <LinkCard key={link.id} link={link} onToggleFavorite={handleToggleFavorite} isFavorite={favorites.has(link.id)} />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                  {currentCategory === 'home' ? '推荐网站' : 
+                   currentCategory === 'favorites' ? '我的收藏' :
+                   data.categories.find(c => c.id === currentCategory)?.name || '所有网站'}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {currentLinks.map(link => (
+                    <LinkCard key={link.id} link={link} onToggleFavorite={handleToggleFavorite} isFavorite={favorites.has(link.id)} />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </main>
+      </div>
     </div>
   )
 } 

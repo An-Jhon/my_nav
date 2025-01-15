@@ -15,59 +15,56 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [sidebarWidth, setSidebarWidth] = useState(280)
   const pathname = usePathname()
 
   return (
-    <div className="flex min-h-screen">
-      <aside style={{ width: sidebarWidth }} className="admin-sidebar flex-shrink-0 bg-white border-r border-gray-200">
-        <div className="sticky top-0 p-4">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6 px-2">
-            导航管理
-          </h1>
-          
-          <Link 
-            href="/" 
-            className={`
-              flex items-center space-x-2 px-3 py-2 rounded-md mb-6 text-base
-              ${pathname === '/' ? 'bg-blue-50 text-blue-600 font-medium' : 'text-gray-600 hover:bg-gray-50'}
-            `}
-          >
-            <HomeIcon className="h-5 w-5" />
-            <span>返回首页</span>
-          </Link>
+    <div className="min-h-screen">
+      <header className="bg-[#7E57C2] text-white shadow-md fixed w-full z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center">
+              <h1 className="text-3xl font-bold text-white">导航管理</h1>
+            </div>
+            <div>
+              <Link 
+                href="/"
+                className="text-white hover:text-gray-200 transition-colors"
+              >
+                返回首页
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
 
-          <nav className="space-y-2">
-            {navigation.map((item) => {
-              const Icon = item.icon
-              const isActive = pathname === item.href
-
-              return (
+      <div className="flex pt-16">
+        <aside className="w-56 bg-white shadow-md fixed h-[calc(100vh-4rem)] overflow-y-auto">
+          <nav className="p-4">
+            <div className="space-y-2">
+              {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`
-                    flex items-center space-x-2 px-3 py-2.5 rounded-md text-base transition-colors
-                    ${isActive 
-                      ? 'bg-blue-50 text-blue-600 font-medium shadow-sm' 
+                    flex items-center px-3 py-2 rounded-md text-base transition-colors
+                    ${pathname === item.href
+                      ? 'bg-purple-50 text-purple-600 font-medium'
                       : 'text-gray-600 hover:bg-gray-50'
                     }
                   `}
                 >
-                  <Icon className="h-5 w-5" />
-                  <span>{item.name}</span>
+                  <item.icon className="w-5 h-5 mr-3" />
+                  {item.name}
                 </Link>
-              )
-            })}
+              ))}
+            </div>
           </nav>
-        </div>
-      </aside>
+        </aside>
 
-      <ResizeHandle onResize={setSidebarWidth} />
-
-      <main className="flex-1 bg-gray-50 p-6">
-        {children}
-      </main>
+        <main className="flex-1 ml-56">
+          {children}
+        </main>
+      </div>
     </div>
   )
 } 
