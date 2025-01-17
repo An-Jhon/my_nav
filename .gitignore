@@ -1,7 +1,14 @@
 # dependencies
+# node_modules - 存放项目依赖的模块文件夹
 /node_modules
-/.history/
-/.next/
+
+# VS Code历史记录文件夹
+.history/
+
+# Next.js构建输出目录
+.next/
+
+# 日志文件目录
 /logs/
 
 
