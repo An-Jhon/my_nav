@@ -1,6 +1,0 @@
-{
-  "/api/data/route": "app/api/data/route.js",
-  "/(home)/page": "app/(home)/page.js",
-  "/admin/(dashboard)/recommendations/page": "app/admin/(dashboard)/recommendations/page.js",
-  "/admin/(auth)/page": "app/admin/(auth)/page.js"
-}
