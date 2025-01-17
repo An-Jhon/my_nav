@@ -1,10 +1,6 @@
 {
   "/api/data/route": "app/api/data/route.js",
-  "/api/links/route": "app/api/links/route.js",
-  "/api/navigation/route": "app/api/navigation/route.js",
   "/(home)/page": "app/(home)/page.js",
-  "/admin/(auth)/page": "app/admin/(auth)/page.js",
   "/admin/(dashboard)/recommendations/page": "app/admin/(dashboard)/recommendations/page.js",
-  "/admin/(dashboard)/links/page": "app/admin/(dashboard)/links/page.js",
-  "/admin/(dashboard)/dashboard/page": "app/admin/(dashboard)/dashboard/page.js"
+  "/admin/(auth)/page": "app/admin/(auth)/page.js"
 }

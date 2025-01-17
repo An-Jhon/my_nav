@@ -16,6 +16,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(home)/page.js"
     ],
+    "/admin/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/layout.js"
+    ],
     "/admin/(auth)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,11 +31,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/admin/(auth)/layout.js"
     ],
-    "/admin/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/layout.js"
-    ],
     "/admin/(dashboard)/recommendations/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -40,21 +40,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/admin/(dashboard)/layout.js"
-    ],
-    "/admin/(dashboard)/links/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/(dashboard)/links/page.js"
-    ],
-    "/admin/(dashboard)/dashboard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/(dashboard)/dashboard/page.js"
-    ],
-    "/admin/(dashboard)/dashboard/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/admin/(dashboard)/dashboard/layout.js"
     ]
   }
 }
