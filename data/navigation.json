@@ -1,0 +1,279 @@
+{
+  "categories": [
+    {
+      "id": "tools",
+      "name": "常用工具",
+      "description": "日常使用的工具网站",
+      "icon": "UsersIcon"
+    },
+    {
+      "id": "resources",
+      "name": "学习资源",
+      "description": "编程学习资源网站",
+      "icon": "AcademicCapIcon"
+    },
+    {
+      "id": "design",
+      "name": "设计资源",
+      "description": "设计相关的资源网站",
+      "icon": "CogIcon"
+    },
+    {
+      "id": "ai",
+      "name": "AI 工具",
+      "description": "人工智能相关工具",
+      "icon": "LightBulbIcon"
+    },
+    {
+      "id": "dev",
+      "name": "开发工具",
+      "description": "开发者常用工具",
+      "icon": "CommandLineIcon"
+    },
+    {
+      "id": "community",
+      "name": "技术社区",
+      "description": "程序员交流社区",
+      "icon": "UserGroupIcon"
+    },
+    {
+      "id": "lw6d4deb6",
+      "name": "测试分类",
+      "description": "测试描述",
+      "icon": "WrenchScrewdriverIcon"
+    },
+    {
+      "name": "代码工具 2",
+      "description": "",
+      "icon": "PuzzlePieceIcon",
+      "id": "gd9imxuso"
+    }
+  ],
+  "links": [
+    {
+      "title": "哔哩哔哩 2",
+      "url": "https://www.bilibili.com/",
+      "description": "",
+      "category": "design",
+      "id": "6f26a544-b8cb-4cc4-9341-c673161c74ad",
+      "createdAt": 1737008892752,
+      "recommended": false,
+      "clicks": 1
+    },
+    {
+      "title": "哔哩哔哩",
+      "url": "https://www.bilibili.com/",
+      "description": "视频网站",
+      "category": "tools",
+      "id": "c528w9ulj",
+      "recommended": false
+    },
+    {
+      "id": "vscode",
+      "title": "VS Code",
+      "url": "https://code.visualstudio.com",
+      "description": "最受欢迎的代码编辑器",
+      "category": "tools",
+      "icon": "vscode",
+      "recommended": false,
+      "clicks": 2
+    },
+    {
+      "id": "github",
+      "title": "GitHub",
+      "url": "https://github.com",
+      "description": "全球最大的代码托管平台",
+      "category": "tools",
+      "icon": "github"
+    },
+    {
+      "id": "chatgpt",
+      "title": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "description": "OpenAI 开发的 AI 聊天助手",
+      "category": "tools",
+      "icon": "openai",
+      "recommended": true
+    },
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "description": "最全面的 Web 开发文档",
+      "category": "resources",
+      "icon": "mdn"
+    },
+    {
+      "id": "figma",
+      "title": "Figma",
+      "url": "https://www.figma.com",
+      "description": "专业的在线设计工具",
+      "category": "design",
+      "icon": "figma",
+      "recommended": true
+    },
+    {
+      "id": "stackoverflow",
+      "title": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "description": "程序员问答社区",
+      "category": "resources",
+      "icon": "stackoverflow"
+    },
+    {
+      "id": "dribbble",
+      "title": "Dribbble",
+      "url": "https://dribbble.com",
+      "description": "设计师作品分享平台",
+      "category": "design",
+      "icon": "dribbble",
+      "recommended": true
+    },
+    {
+      "id": "midjourney",
+      "title": "Midjourney",
+      "url": "https://www.midjourney.com",
+      "description": "AI 图像生成工具",
+      "category": "ai",
+      "icon": "midjourney"
+    },
+    {
+      "id": "vercel",
+      "title": "Vercel",
+      "url": "https://vercel.com",
+      "description": "最佳的前端部署平台",
+      "category": "dev",
+      "icon": "vercel"
+    },
+    {
+      "id": "notion",
+      "title": "Notion",
+      "url": "https://www.notion.so",
+      "description": "新一代协作与知识管理工具",
+      "category": "tools",
+      "icon": "notion",
+      "recommended": true
+    },
+    {
+      "id": "juejin",
+      "title": "掘金",
+      "url": "https://juejin.cn",
+      "description": "中文技术社区",
+      "category": "community",
+      "icon": "juejin",
+      "recommended": false
+    },
+    {
+      "id": "reactjs",
+      "title": "React",
+      "url": "https://react.dev",
+      "description": "用于构建用户界面的 JavaScript 库",
+      "category": "resources",
+      "icon": "react"
+    },
+    {
+      "id": "nextjs",
+      "title": "Next.js",
+      "url": "https://nextjs.org",
+      "description": "React 框架，用于生产环境",
+      "category": "resources",
+      "icon": "nextjs"
+    },
+    {
+      "id": "typescript",
+      "title": "TypeScript",
+      "url": "https://www.typescriptlang.org",
+      "description": "JavaScript 的超集",
+      "category": "resources",
+      "icon": "typescript",
+      "recommended": true
+    },
+    {
+      "id": "tailwind",
+      "title": "Tailwind CSS",
+      "url": "https://tailwindcss.com",
+      "description": "实用优先的 CSS 框架",
+      "category": "resources",
+      "icon": "tailwind"
+    },
+    {
+      "id": "claude",
+      "title": "Claude",
+      "url": "https://claude.ai",
+      "description": "Anthropic 开发的 AI 助手",
+      "category": "ai",
+      "icon": "claude",
+      "recommended": true
+    },
+    {
+      "id": "gemini",
+      "title": "Gemini",
+      "url": "https://gemini.google.com",
+      "description": "Google 的 AI 模型",
+      "category": "ai",
+      "icon": "google",
+      "recommended": true
+    },
+    {
+      "id": "copilot",
+      "title": "GitHub Copilot",
+      "url": "https://github.com/features/copilot",
+      "description": "AI 编程助手",
+      "category": "ai",
+      "icon": "github",
+      "recommended": false
+    },
+    {
+      "id": "canva",
+      "title": "Canva",
+      "url": "https://www.canva.com",
+      "description": "在线设计工具",
+      "category": "design",
+      "icon": "canva",
+      "recommended": true,
+      "clicks": 1
+    },
+    {
+      "id": "behance",
+      "title": "Behance",
+      "url": "https://www.behance.net",
+      "description": "创意作品展示平台",
+      "category": "design",
+      "icon": "behance",
+      "recommended": false
+    },
+    {
+      "id": "netlify",
+      "title": "Netlify",
+      "url": "https://www.netlify.com",
+      "description": "现代网站部署平台",
+      "category": "dev",
+      "icon": "netlify",
+      "recommended": false
+    },
+    {
+      "id": "railway",
+      "title": "Railway",
+      "url": "https://railway.app",
+      "description": "现代化应用部署平台",
+      "category": "dev",
+      "icon": "railway"
+    },
+    {
+      "id": "v2ex",
+      "title": "V2EX",
+      "url": "https://www.v2ex.com",
+      "description": "创意工作者社区",
+      "category": "community",
+      "icon": "v2ex"
+    },
+    {
+      "id": "producthunt",
+      "title": "Product Hunt",
+      "url": "https://www.producthunt.com",
+      "description": "发现新产品的平台",
+      "category": "community",
+      "icon": "producthunt"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ export interface NavLink {
   description?: string;
   icon?: string;
   category: string;
+  createdAt: number;
 }
 
 // 分类的类型定义

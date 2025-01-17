@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/page": [
+    "/(home)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+      "static/chunks/app/(home)/layout.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -11,20 +11,50 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/(home)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(home)/page.js"
+    ],
+    "/admin/(auth)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(auth)/page.js"
+    ],
+    "/admin/(auth)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(auth)/layout.js"
+    ],
     "/admin/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/admin/layout.js"
     ],
-    "/admin/dashboard/page": [
+    "/admin/(dashboard)/recommendations/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/dashboard/page.js"
+      "static/chunks/app/admin/(dashboard)/recommendations/page.js"
     ],
-    "/admin/dashboard/layout": [
+    "/admin/(dashboard)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/dashboard/layout.js"
+      "static/chunks/app/admin/(dashboard)/layout.js"
+    ],
+    "/admin/(dashboard)/links/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(dashboard)/links/page.js"
+    ],
+    "/admin/(dashboard)/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(dashboard)/dashboard/page.js"
+    ],
+    "/admin/(dashboard)/dashboard/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/(dashboard)/dashboard/layout.js"
     ]
   }
 }

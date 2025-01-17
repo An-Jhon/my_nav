@@ -1,14 +1,16 @@
 'use client'
-import { useState } from 'react'
-import type { NavCategory } from '@/types'
+import React, { useState } from 'react'
+import type { NavCategory, NavLink } from '@/types'
 import { FolderIcon, BookmarkIcon, AcademicCapIcon, BeakerIcon, CodeBracketIcon, CommandLineIcon, CpuChipIcon, WrenchIcon, GlobeAltIcon, LinkIcon, DocumentIcon, DocumentTextIcon, CloudIcon, ServerIcon, ShieldCheckIcon, CubeIcon, RocketLaunchIcon, PuzzlePieceIcon, LightBulbIcon, FireIcon, HashtagIcon, QueueListIcon, WindowIcon, Square3Stack3DIcon, CircleStackIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, VideoCameraIcon, ArchiveBoxIcon, BoltIcon, BuildingLibraryIcon, CalculatorIcon, CalendarIcon, ChartBarIcon, ChatBubbleLeftIcon, ClockIcon, CloudArrowUpIcon, CogIcon, CurrencyDollarIcon, EnvelopeIcon, FilmIcon, FingerPrintIcon, GiftIcon, HeartIcon, HomeIcon, InboxIcon, KeyIcon, LanguageIcon, MapIcon, MegaphoneIcon, MicrophoneIcon, MusicalNoteIcon, NewspaperIcon, PaintBrushIcon, PhotoIcon, PrinterIcon, QrCodeIcon, QuestionMarkCircleIcon, RadioIcon, ScaleIcon, ShoppingBagIcon, ShoppingCartIcon, SignalIcon, SpeakerWaveIcon, StarIcon, SunIcon, TableCellsIcon, TagIcon, TicketIcon, TrophyIcon, TvIcon, UserGroupIcon, UserIcon, UsersIcon, WifiIcon, WrenchScrewdriverIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import IconSelect from './IconSelect'
 
 interface CategoryManagerProps {
   categories: NavCategory[]
+  links: NavLink[]
   onAdd: (category: Omit<NavCategory, 'id'>) => void
   onUpdate: (category: NavCategory) => void
   onDelete: (id: string) => void
+  onUpdateLinks?: (links: NavLink[]) => void
 }
 
 // 预定义图标列表
@@ -92,16 +94,36 @@ const iconOptions = [
   { name: 'XMarkIcon', displayName: '关闭', icon: XMarkIcon },
 ]
 
+// 修改所有输入框的聚焦样式
+const inputStyles = `
+  block w-full px-3 py-2 rounded-md border border-gray-300 
+  shadow-sm focus:border-[#7E57C2] focus:ring-[#7E57C2] 
+  focus:ring-1 focus:ring-opacity-50 sm:text-sm
+  focus:outline-none
+`
+
+// 修改下拉框的聚焦样式
+const selectStyles = `
+  block w-full px-3 py-2 rounded-md border border-gray-300 
+  shadow-sm focus:border-[#7E57C2] focus:ring-[#7E57C2] 
+  focus:ring-1 focus:ring-opacity-50 sm:text-sm
+  focus:outline-none
+`
+
 export default function CategoryManager({ 
   categories, 
+  links,
   onAdd, 
   onUpdate, 
-  onDelete 
+  onDelete,
+  onUpdateLinks 
 }: CategoryManagerProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [newCategory, setNewCategory] = useState({ name: '', description: '', icon: 'FolderIcon' })
   const [editingCategory, setEditingCategory] = useState<NavCategory | null>(null)
   const [nameError, setNameError] = useState<string>('')
+  const [selectedLinks, setSelectedLinks] = useState<Set<string>>(new Set())
+  const [targetCategory, setTargetCategory] = useState<string>('')
 
   const handleSubmitNew = (e: React.FormEvent) => {
     e.preventDefault()
@@ -145,25 +167,58 @@ export default function CategoryManager({
   // 检查是否可以提交
   const canSubmit = newCategory.name.trim().length > 0
 
+  const handleSelectLink = (linkId: string) => {
+    setSelectedLinks(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(linkId)) {
+        newSet.delete(linkId)
+      } else {
+        newSet.add(linkId)
+      }
+      return newSet
+    })
+  }
+
+  const handleMoveLinks = async () => {
+    if (!targetCategory || selectedLinks.size === 0) return
+    
+    const updatedLinks = links.map(link => {
+      if (selectedLinks.has(link.id)) {
+        return { ...link, category: targetCategory }
+      }
+      return link
+    })
+
+    onUpdateLinks?.(updatedLinks)
+    setSelectedLinks(new Set())
+    setTargetCategory('')
+  }
+
+  const handleDeleteLinks = async () => {
+    if (selectedLinks.size === 0) return
+    
+    const updatedLinks = links.filter(link => !selectedLinks.has(link.id))
+    onUpdateLinks?.(updatedLinks)
+    setSelectedLinks(new Set())
+  }
+
   return (
     <div className="space-y-6">
-      {/* 添加新分类的表单 */}
-      <div className="bg-white shadow rounded-lg p-6 max-w-3xl">
+      {/* 添加新分类的表单 - 移除 max-w-3xl 限制 */}
+      <div className="bg-white shadow rounded-lg p-6">
         <h3 className="text-lg font-medium text-gray-900 mb-4">添加新分类</h3>
         <form onSubmit={handleSubmitNew} className="space-y-4">
-          <div className="grid grid-cols-5 gap-4">
-            <div className="col-span-2">
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-3">
               <label htmlFor="new-name" className="block text-sm font-medium text-gray-700 mb-1">
                 分类名称 <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 id="new-name"
-                className={`block w-full px-3 py-2 rounded-md border ${
-                  nameError ? 'border-red-300' : 'border-gray-300'
-                } shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm`}
+                className={inputStyles}
                 value={newCategory.name}
-                onChange={handleNameChange}
+                onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
                 required
               />
               {nameError && (
@@ -172,14 +227,14 @@ export default function CategoryManager({
                 </p>
               )}
             </div>
-            <div className="col-span-3">
+            <div className="col-span-5">
               <label htmlFor="new-description" className="block text-sm font-medium text-gray-700 mb-1">
                 描述（选填）
               </label>
               <input
                 type="text"
                 id="new-description"
-                className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className={inputStyles}
                 value={newCategory.description}
                 onChange={(e) => setNewCategory({ ...newCategory, description: e.target.value })}
               />
@@ -194,17 +249,19 @@ export default function CategoryManager({
                 options={iconOptions}
               />
             </div>
-          </div>
-          <div className="mt-4">
-            <button
-              type="submit"
-              disabled={!canSubmit}
-              className={`inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white 
-                ${canSubmit ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-400 cursor-not-allowed'}
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-            >
-              添加分类
-            </button>
+            <div className="col-span-2 flex items-end">
+              <button
+                type="submit"
+                disabled={!canSubmit}
+                className={`w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white 
+                  ${canSubmit 
+                    ? 'bg-[#7E57C2] hover:bg-[#6A45B0]' 
+                    : 'bg-gray-400 cursor-not-allowed'
+                  } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]`}
+              >
+                添加分类
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -230,110 +287,179 @@ export default function CategoryManager({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {categories.map(category => (
-              <tr key={category.id}>
-                {editingId === category.id ? (
-                  <td colSpan={4} className="px-6 py-4">
-                    <form onSubmit={handleSubmitEdit} className="max-w-3xl mx-auto bg-gray-50 p-4 rounded-lg border border-gray-200">
-                      <div className="grid grid-cols-5 gap-4">
-                        <div className="col-span-2">
-                          <label htmlFor={`edit-name-${category.id}`} className="block text-sm font-medium text-gray-700 mb-1">
-                            分类名称 <span className="text-red-500">*</span>
-                          </label>
-                          <input
-                            type="text"
-                            id={`edit-name-${category.id}`}
-                            className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                            value={editingCategory?.name || ''}
-                            onChange={(e) => setEditingCategory(prev => prev ? { ...prev, name: e.target.value } : null)}
-                            required
-                            autoFocus
-                          />
+              <React.Fragment key={category.id}>
+                <tr>
+                  {editingId === category.id ? (
+                    <td colSpan={4} className="px-6 py-4">
+                      <form 
+                        onSubmit={handleSubmitEdit} 
+                        className="mx-4 bg-gray-50 p-6 rounded-lg border border-gray-200 space-y-6"
+                      >
+                        {/* 分类基本信息编辑 */}
+                        <div className="grid grid-cols-12 gap-4">
+                          <div className="col-span-3">
+                            <label htmlFor={`edit-name-${category.id}`} className="block text-sm font-medium text-gray-700 mb-1">
+                              分类名称 <span className="text-red-500">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              id={`edit-name-${category.id}`}
+                              className={inputStyles}
+                              value={editingCategory?.name || ''}
+                              onChange={(e) => setEditingCategory(prev => prev ? { ...prev, name: e.target.value } : null)}
+                              required
+                              autoFocus
+                            />
+                          </div>
+                          <div className="col-span-6">
+                            <label htmlFor={`edit-description-${category.id}`} className="block text-sm font-medium text-gray-700 mb-1">
+                              描述（选填）
+                            </label>
+                            <input
+                              type="text"
+                              id={`edit-description-${category.id}`}
+                              className={inputStyles}
+                              value={editingCategory?.description || ''}
+                              onChange={(e) => setEditingCategory(prev => prev ? { ...prev, description: e.target.value } : null)}
+                            />
+                          </div>
+                          <div className="col-span-3 relative">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                              选择图标
+                            </label>
+                            <IconSelect
+                              value={editingCategory?.icon || 'FolderIcon'}
+                              onChange={(value) => setEditingCategory(prev => prev ? { ...prev, icon: value } : null)}
+                              options={iconOptions}
+                            />
+                          </div>
                         </div>
-                        <div className="col-span-3">
-                          <label htmlFor={`edit-description-${category.id}`} className="block text-sm font-medium text-gray-700 mb-1">
-                            描述（选填）
-                          </label>
-                          <input
-                            type="text"
-                            id={`edit-description-${category.id}`}
-                            className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-                            value={editingCategory?.description || ''}
-                            onChange={(e) => setEditingCategory(prev => prev ? { ...prev, description: e.target.value } : null)}
-                          />
-                        </div>
-                        <div className="col-span-2">
-                          <label htmlFor={`edit-icon-${category.id}`} className="block text-sm font-medium text-gray-700 mb-1">
-                            选择图标
-                          </label>
-                          <IconSelect
-                            value={editingCategory?.icon || 'FolderIcon'}
-                            onChange={(value) => setEditingCategory(prev => 
-                              prev ? { ...prev, icon: value } : null
+
+                        {/* 分类下的网址列表 */}
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-medium text-gray-900">
+                              分类下的网址 ({links.filter(link => link.category === category.id).length})
+                            </h4>
+                            {selectedLinks.size > 0 && (
+                              <div className="flex items-center space-x-2">
+                                <select
+                                  value={targetCategory}
+                                  onChange={(e) => setTargetCategory(e.target.value)}
+                                  className={selectStyles}
+                                >
+                                  <option value="">移动到...</option>
+                                  {categories
+                                    .filter(c => c.id !== category.id)
+                                    .map(c => (
+                                      <option key={c.id} value={c.id}>
+                                        {c.name}
+                                      </option>
+                                    ))
+                                  }
+                                </select>
+                                <button
+                                  type="button"
+                                  onClick={handleMoveLinks}
+                                  disabled={!targetCategory}
+                                  className="px-3 py-1 text-sm text-white bg-[#7E57C2] rounded-md hover:bg-[#6A45B0] disabled:bg-gray-400"
+                                >
+                                  移动
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={handleDeleteLinks}
+                                  className="px-3 py-1 text-sm text-white bg-red-600 rounded-md hover:bg-red-700"
+                                >
+                                  删除
+                                </button>
+                              </div>
                             )}
-                            options={iconOptions}
-                          />
+                          </div>
+                          <div className="space-y-2 max-h-60 overflow-y-auto border border-gray-200 rounded-md p-2">
+                            {links
+                              .filter(link => link.category === category.id)
+                              .map(link => (
+                                <div
+                                  key={link.id}
+                                  className="flex items-center space-x-3 p-2 rounded-md hover:bg-gray-100"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedLinks.has(link.id)}
+                                    onChange={() => handleSelectLink(link.id)}
+                                    className="h-4 w-4 text-blue-600 rounded border-gray-300"
+                                  />
+                                  <span className="text-sm font-medium text-gray-900">
+                                    {link.title}
+                                  </span>
+                                  <span className="text-sm text-gray-500">
+                                    {link.url}
+                                  </span>
+                                </div>
+                              ))}
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex justify-end space-x-2 mt-3">
+
+                        {/* 操作按钮 */}
+                        <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingId(null)
+                              setEditingCategory(null)
+                              setSelectedLinks(new Set())
+                            }}
+                            className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]"
+                          >
+                            取消
+                          </button>
+                          <button
+                            type="submit"
+                            disabled={!editingCategory?.name.trim()}
+                            className="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#7E57C2] hover:bg-[#6A45B0] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]"
+                          >
+                            保存
+                          </button>
+                        </div>
+                      </form>
+                    </td>
+                  ) : (
+                    <>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 w-36">
+                        {category.name}
+                      </td>
+                      <td className="px-6 py-4 w-32">
+                        <div className="flex justify-center items-center">
+                          {(() => {
+                            const IconComponent = iconOptions.find(opt => 
+                              opt.name === (category.icon || 'FolderIcon')
+                            )?.icon || FolderIcon
+                            return <IconComponent className="h-6 w-6 text-gray-600" />
+                          })()}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-500 w-1/2 break-words">
+                        {category.description}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium w-32">
                         <button
-                          type="button"
-                          onClick={() => {
-                            setEditingId(null)
-                            setEditingCategory(null)
-                          }}
-                          className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                          onClick={() => startEdit(category)}
+                          className="text-blue-600 hover:text-blue-900 mr-4"
                         >
-                          取消
+                          编辑
                         </button>
                         <button
-                          type="submit"
-                          disabled={!editingCategory?.name.trim()}
-                          className={`inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white 
-                            ${editingCategory?.name.trim() 
-                              ? 'bg-blue-600 hover:bg-blue-700' 
-                              : 'bg-gray-400 cursor-not-allowed'
-                            } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                          onClick={() => onDelete(category.id)}
+                          className="text-red-600 hover:text-red-900"
                         >
-                          保存
+                          删除
                         </button>
-                      </div>
-                    </form>
-                  </td>
-                ) : (
-                  <>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 w-36">
-                      {category.name}
-                    </td>
-                    <td className="px-6 py-4 w-32">
-                      <div className="flex justify-center items-center">
-                        {(() => {
-                          const IconComponent = iconOptions.find(opt => 
-                            opt.name === (category.icon || 'FolderIcon')
-                          )?.icon || FolderIcon
-                          return <IconComponent className="h-6 w-6 text-gray-600" />
-                        })()}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 w-1/2 break-words">
-                      {category.description}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium w-32">
-                      <button
-                        onClick={() => startEdit(category)}
-                        className="text-blue-600 hover:text-blue-900 mr-4"
-                      >
-                        编辑
-                      </button>
-                      <button
-                        onClick={() => onDelete(category.id)}
-                        className="text-red-600 hover:text-red-900"
-                      >
-                        删除
-                      </button>
-                    </td>
-                  </>
-                )}
-              </tr>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              </React.Fragment>
             ))}
           </tbody>
         </table>

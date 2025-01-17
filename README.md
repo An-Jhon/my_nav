@@ -42,7 +42,7 @@
 - 访问 vercel 地址即可看到项目
 
 ## 数据管理
-- 网站数据存储在 `/public/data/navigation.json` 文件中
+- 网站数据存储在 `/data/navigation.json` 文件中
 - 可以通过管理界面 `/admin` 进行数据管理
 - 支持添加、编辑、删除分类和网址
 - 支持网址收藏功能，收藏数据保存在本地

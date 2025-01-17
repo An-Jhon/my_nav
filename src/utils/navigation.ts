@@ -2,8 +2,8 @@ import { NavData } from '@/types'
 
 export async function getNavigationData(): Promise<NavData> {
   try {
-    // 使用相对路径从 public 目录获取数据
-    const response = await fetch('/data/navigation.json')
+    // 改用 API 路由获取数据
+    const response = await fetch('/api/navigation')
     if (!response.ok) {
       throw new Error('Failed to fetch navigation data')
     }

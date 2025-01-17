@@ -1,11 +1,11 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
-import { FolderIcon, BookmarkIcon, AcademicCapIcon, BeakerIcon, CodeBracketIcon, CommandLineIcon, CpuChipIcon, WrenchIcon } from '@heroicons/react/24/outline'
+import React, { useState, useRef, useEffect } from 'react'
+import { ChevronDownIcon } from '@heroicons/react/24/outline'
 
 interface IconOption {
   name: string
   displayName: string
-  icon: React.ComponentType<any>
+  icon: React.ElementType
 }
 
 interface IconSelectProps {
@@ -16,11 +16,14 @@ interface IconSelectProps {
 
 export default function IconSelect({ value, onChange, options }: IconSelectProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const selectedOption = options.find(opt => opt.name === value) || options[0]
+  const Icon = selectedOption.icon
 
+  // 处理点击外部关闭下拉菜单
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
     }
@@ -29,65 +32,41 @@ export default function IconSelect({ value, onChange, options }: IconSelectProps
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const selectedOption = options.find(opt => opt.name === value) || options[0]
-  const IconComponent = selectedOption.icon
-
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative" ref={containerRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between px-3 py-2 border border-gray-300 rounded-md bg-white text-sm"
+        className="w-full bg-white border border-gray-300 rounded-md py-2 px-3 text-sm flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]"
       >
         <div className="flex items-center">
-          <IconComponent className="h-5 w-5 text-gray-600" />
-          <span className="ml-2">{selectedOption.displayName}</span>
+          <Icon className="h-5 w-5 text-gray-600 mr-2" />
+          <span className="text-gray-900">{selectedOption.displayName}</span>
         </div>
-        <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-          <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-        </svg>
+        <ChevronDownIcon className="h-5 w-5 text-gray-400" />
       </button>
 
       {isOpen && (
-        <div 
-          className="fixed z-50 bg-white border border-gray-300 rounded-md shadow-lg"
-          style={{
-            width: '320px',
-            maxHeight: '320px',
-            overflow: 'auto',
-            left: dropdownRef.current ? 
-              Math.min(
-                dropdownRef.current.getBoundingClientRect().left,
-                window.innerWidth - 320 - 20
-              ) : 0,
-            top: dropdownRef.current ? 
-              Math.min(
-                dropdownRef.current.getBoundingClientRect().bottom + window.scrollY + 4,
-                window.innerHeight - 320 - 20
-              ) : 0
-          }}
-        >
-          <div className="grid grid-cols-8 gap-1 p-2">
-            {options.map((option) => {
-              const OptionIcon = option.icon
-              return (
-                <button
-                  key={option.name}
-                  type="button"
-                  onClick={() => {
-                    onChange(option.name)
-                    setIsOpen(false)
-                  }}
-                  title={option.displayName}
-                  className={`flex items-center justify-center p-2 hover:bg-gray-50 rounded-md transition-colors
-                    ${value === option.name ? 'bg-purple-50 text-purple-600' : 'text-gray-600'}
-                  `}
-                >
-                  <OptionIcon className="h-5 w-5" />
-                </button>
-              )
-            })}
-          </div>
+        <div className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none">
+          {options.map((option) => {
+            const IconComponent = option.icon
+            return (
+              <button
+                key={option.name}
+                type="button"
+                className={`w-full text-left px-3 py-2 text-sm flex items-center hover:bg-gray-100 ${
+                  option.name === value ? 'bg-purple-50 text-purple-600' : 'text-gray-900'
+                }`}
+                onClick={() => {
+                  onChange(option.name)
+                  setIsOpen(false)
+                }}
+              >
+                <IconComponent className="h-5 w-5 mr-2" />
+                {option.displayName}
+              </button>
+            )
+          })}
         </div>
       )}
     </div>

@@ -3,16 +3,16 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
-// 使用 Inter 字体
 const inter = Inter({ subsets: ['latin'] })
 
-// 设置网站的元数据
 export const metadata: Metadata = {
-  title: '阿白导航',
+  metadataBase: new URL('http://localhost:3000'),
+  title: {
+    absolute: '要你命三千',
+  },
   description: '一个轻量级的导航网站，为您提供便捷的网址导航服务',
 }
 
-// 根布局组件
 export default function RootLayout({
   children,
 }: {
@@ -20,9 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   )
 } 

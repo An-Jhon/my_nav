@@ -16,7 +16,8 @@
 # misc
 .DS_Store
 *.pem
-.history/
+/.history/
+/logs/
 
 # debug
 npm-debug.log*

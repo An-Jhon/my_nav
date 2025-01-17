@@ -21,6 +21,13 @@ export default function LinkManager({
   const [newLink, setNewLink] = useState({ title: '', url: '', description: '', category: '' })
   const [editingLink, setEditingLink] = useState<NavLink | null>(null)
 
+  const inputStyles = `
+    block w-full px-3 py-2 rounded-md border border-gray-300 
+    shadow-sm focus:border-[#7E57C2] focus:ring-[#7E57C2] 
+    focus:ring-1 focus:ring-opacity-50 sm:text-sm
+    focus:outline-none
+  `
+
   const handleSubmitNew = (e: React.FormEvent) => {
     e.preventDefault()
     onAdd(newLink)
@@ -59,7 +66,7 @@ export default function LinkManager({
               <input
                 type="text"
                 id="new-title"
-                className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className={inputStyles}
                 value={newLink.title}
                 onChange={(e) => setNewLink({ ...newLink, title: e.target.value })}
                 required
@@ -72,7 +79,7 @@ export default function LinkManager({
               <input
                 type="url"
                 id="new-url"
-                className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                className={inputStyles}
                 value={newLink.url}
                 onChange={(e) => setNewLink({ ...newLink, url: e.target.value })}
                 required
@@ -86,7 +93,7 @@ export default function LinkManager({
             <input
               type="text"
               id="new-description"
-              className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className={inputStyles}
               value={newLink.description}
               onChange={(e) => setNewLink({ ...newLink, description: e.target.value })}
             />
@@ -97,7 +104,7 @@ export default function LinkManager({
             </label>
             <select
               id="new-category"
-              className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              className={inputStyles}
               value={newLink.category}
               onChange={(e) => setNewLink({ ...newLink, category: e.target.value })}
               required
@@ -118,9 +125,9 @@ export default function LinkManager({
               disabled={!canSubmit}
               className={`inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white 
                 ${canSubmit 
-                  ? 'bg-blue-600 hover:bg-blue-700' 
+                  ? 'bg-[#7E57C2] hover:bg-[#6A45B0]' 
                   : 'bg-gray-400 cursor-not-allowed'
-                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]`}
             >
               添加网址
             </button>
@@ -151,7 +158,7 @@ export default function LinkManager({
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {[...links].reverse().map(link => (
+            {links.map(link => (
               <tr key={link.id}>
                 {editingId === link.id ? (
                   <td colSpan={5} className="px-6 py-4">
@@ -163,7 +170,7 @@ export default function LinkManager({
                           </label>
                           <input
                             type="text"
-                            className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            className={inputStyles}
                             value={editingLink?.title || ''}
                             onChange={(e) => setEditingLink(prev => prev ? { ...prev, title: e.target.value } : null)}
                             required
@@ -175,7 +182,7 @@ export default function LinkManager({
                           </label>
                           <input
                             type="url"
-                            className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                            className={inputStyles}
                             value={editingLink?.url || ''}
                             onChange={(e) => setEditingLink(prev => prev ? { ...prev, url: e.target.value } : null)}
                             required
@@ -188,7 +195,7 @@ export default function LinkManager({
                         </label>
                         <input
                           type="text"
-                          className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                          className={inputStyles}
                           value={editingLink?.description || ''}
                           onChange={(e) => setEditingLink(prev => prev ? { ...prev, description: e.target.value } : null)}
                         />
@@ -198,7 +205,7 @@ export default function LinkManager({
                           所属分类 <span className="text-red-500">*</span>
                         </label>
                         <select
-                          className="block w-full px-3 py-2 rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+                          className={inputStyles}
                           value={editingLink?.category || ''}
                           onChange={(e) => setEditingLink(prev => prev ? { ...prev, category: e.target.value } : null)}
                           required
@@ -218,14 +225,14 @@ export default function LinkManager({
                             setEditingId(null)
                             setEditingLink(null)
                           }}
-                          className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                          className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]"
                         >
                           取消
                         </button>
                         <button
                           type="submit"
                           disabled={!editingLink?.title.trim() || !editingLink?.url.trim() || !editingLink?.category.trim()}
-                          className="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                          className="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#7E57C2] hover:bg-[#6A45B0] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#7E57C2]"
                         >
                           保存
                         </button>
