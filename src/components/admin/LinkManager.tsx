@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
-import type { NavLink, NavCategory } from '@/types'
+import type { NavLink, Category } from '@/types'
 
 interface LinkManagerProps {
   links: NavLink[]
-  categories: NavCategory[]
+  categories: Category[]
   onAdd: (link: Omit<NavLink, 'id'>) => void
   onUpdate: (link: NavLink) => void
   onDelete: (id: string) => void

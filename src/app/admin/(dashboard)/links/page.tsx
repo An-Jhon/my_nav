@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import LinkManager from '@/components/admin/LinkManager'
-import type { NavLink, NavCategory } from '@/types'
+import type { NavLink, Category } from '@/types'
 
 export default function LinksPage() {
   const router = useRouter()
   const [links, setLinks] = useState<NavLink[]>([])
-  const [categories, setCategories] = useState<NavCategory[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
 
   // 验证登录状态

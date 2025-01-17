@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import CategoryManager from '@/components/admin/CategoryManager'
-import type { NavLink, NavCategory } from '@/types'
+import type { NavLink, Category } from '@/types'
 
 export default function DashboardPage() {
   const router = useRouter()
-  const [categories, setCategories] = useState<NavCategory[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
   const [links, setLinks] = useState<NavLink[]>([])
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -92,7 +92,7 @@ export default function DashboardPage() {
   }
 
   // 添加处理添加分类的函数
-  const handleAddCategory = async (category: Omit<NavCategory, 'id'>) => {
+  const handleAddCategory = async (category: Omit<Category, 'id'>) => {
     try {
       // 检查分类名称是否已存在
       const nameExists = categories.some(
@@ -126,7 +126,7 @@ export default function DashboardPage() {
   }
 
   // 添加处理更新分类的函数
-  const handleUpdateCategory = async (category: NavCategory) => {
+  const handleUpdateCategory = async (category: Category) => {
     try {
       const response = await fetch('/api/categories', {
         method: 'PUT',

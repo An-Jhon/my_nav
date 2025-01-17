@@ -1,14 +1,14 @@
 'use client'
 import React, { useState } from 'react'
-import type { NavCategory, NavLink } from '@/types'
+import type { NavLink, Category } from '@/types'
 import { FolderIcon, BookmarkIcon, AcademicCapIcon, BeakerIcon, CodeBracketIcon, CommandLineIcon, CpuChipIcon, WrenchIcon, GlobeAltIcon, LinkIcon, DocumentIcon, DocumentTextIcon, CloudIcon, ServerIcon, ShieldCheckIcon, CubeIcon, RocketLaunchIcon, PuzzlePieceIcon, LightBulbIcon, FireIcon, HashtagIcon, QueueListIcon, WindowIcon, Square3Stack3DIcon, CircleStackIcon, ComputerDesktopIcon, DevicePhoneMobileIcon, VideoCameraIcon, ArchiveBoxIcon, BoltIcon, BuildingLibraryIcon, CalculatorIcon, CalendarIcon, ChartBarIcon, ChatBubbleLeftIcon, ClockIcon, CloudArrowUpIcon, CogIcon, CurrencyDollarIcon, EnvelopeIcon, FilmIcon, FingerPrintIcon, GiftIcon, HeartIcon, HomeIcon, InboxIcon, KeyIcon, LanguageIcon, MapIcon, MegaphoneIcon, MicrophoneIcon, MusicalNoteIcon, NewspaperIcon, PaintBrushIcon, PhotoIcon, PrinterIcon, QrCodeIcon, QuestionMarkCircleIcon, RadioIcon, ScaleIcon, ShoppingBagIcon, ShoppingCartIcon, SignalIcon, SpeakerWaveIcon, StarIcon, SunIcon, TableCellsIcon, TagIcon, TicketIcon, TrophyIcon, TvIcon, UserGroupIcon, UserIcon, UsersIcon, WifiIcon, WrenchScrewdriverIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import IconSelect from './IconSelect'
 
 interface CategoryManagerProps {
-  categories: NavCategory[]
+  categories: Category[]
   links: NavLink[]
-  onAdd: (category: Omit<NavCategory, 'id'>) => void
-  onUpdate: (category: NavCategory) => void
+  onAdd: (category: Omit<Category, 'id'>) => void
+  onUpdate: (category: Category) => void
   onDelete: (id: string) => void
   onUpdateLinks?: (links: NavLink[]) => void
 }
@@ -120,7 +120,7 @@ export default function CategoryManager({
 }: CategoryManagerProps) {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [newCategory, setNewCategory] = useState({ name: '', description: '', icon: 'FolderIcon' })
-  const [editingCategory, setEditingCategory] = useState<NavCategory | null>(null)
+  const [editingCategory, setEditingCategory] = useState<Category | null>(null)
   const [nameError, setNameError] = useState<string>('')
   const [selectedLinks, setSelectedLinks] = useState<Set<string>>(new Set())
   const [targetCategory, setTargetCategory] = useState<string>('')
@@ -159,7 +159,7 @@ export default function CategoryManager({
     }
   }
 
-  const startEdit = (category: NavCategory) => {
+  const startEdit = (category: Category) => {
     setEditingId(category.id)
     setEditingCategory(category)
   }
