@@ -6,7 +6,8 @@
 .history/
 
 # Next.js构建输出目录
-.next/
+/.next/
+/out/
 
 # 日志文件目录
 /logs/
@@ -17,9 +18,6 @@
 
 # testing
 /coverage
-
-# next.js
-/out/
 
 # production
 /build
@@ -39,3 +37,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 本地数据文件
+/data

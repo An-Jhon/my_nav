@@ -57,7 +57,8 @@
       "category": "4krd6y2vx",
       "id": "qffk713cs",
       "createdAt": 1739868261388,
-      "clicks": 0
+      "clicks": 0,
+      "recommended": true
     },
     {
       "id": "vscode",
@@ -237,7 +238,7 @@
       "description": "现代网站部署平台",
       "category": "dev",
       "icon": "netlify",
-      "recommended": true
+      "recommended": false
     },
     {
       "id": "railway",
