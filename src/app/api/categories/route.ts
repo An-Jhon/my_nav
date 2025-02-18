@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import { NextResponse } from 'next/server'
 import path from 'path'
+import * as dataManager from '@/lib/dataManager'
 import { NavData } from '@/types'
 
 // 修改数据文件路径，添加错误处理
@@ -82,7 +83,7 @@ export async function PUT(request: Request) {
 // DELETE 请求处理（删除分类）
 export async function DELETE(request: Request) {
   try {
-    const data = await getData()
+    const data = await dataManager.readData()
     const { id, deleteLinks } = await request.json()
     
     // 删除分类
@@ -93,7 +94,7 @@ export async function DELETE(request: Request) {
       data.links = data.links.filter(link => link.category !== id)
     }
     
-    await writeData(data)
+    await dataManager.writeData(data)
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error deleting category:', error)

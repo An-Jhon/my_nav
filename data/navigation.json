@@ -37,36 +37,27 @@
       "icon": "UserGroupIcon"
     },
     {
-      "id": "lw6d4deb6",
       "name": "测试分类",
       "description": "测试描述",
-      "icon": "WrenchScrewdriverIcon"
+      "icon": "BookmarkIcon",
+      "id": "q86yhr711"
     },
     {
-      "name": "代码工具 2",
+      "name": "测试分类2",
       "description": "",
-      "icon": "PuzzlePieceIcon",
-      "id": "gd9imxuso"
+      "icon": "FolderIcon",
+      "id": "4krd6y2vx"
     }
   ],
   "links": [
     {
-      "title": "哔哩哔哩 2",
-      "url": "https://www.bilibili.com/",
-      "description": "",
-      "category": "design",
-      "id": "6f26a544-b8cb-4cc4-9341-c673161c74ad",
-      "createdAt": 1737008892752,
-      "recommended": false,
-      "clicks": 1
-    },
-    {
-      "title": "哔哩哔哩",
-      "url": "https://www.bilibili.com/",
-      "description": "视频网站",
-      "category": "tools",
-      "id": "c528w9ulj",
-      "recommended": false
+      "title": "百度",
+      "url": "https://www.baidu.com",
+      "description": "测试描述",
+      "category": "4krd6y2vx",
+      "id": "qffk713cs",
+      "createdAt": 1739868261388,
+      "clicks": 0
     },
     {
       "id": "vscode",
@@ -84,7 +75,8 @@
       "url": "https://github.com",
       "description": "全球最大的代码托管平台",
       "category": "tools",
-      "icon": "github"
+      "icon": "github",
+      "recommended": true
     },
     {
       "id": "chatgpt",
@@ -101,7 +93,8 @@
       "url": "https://developer.mozilla.org",
       "description": "最全面的 Web 开发文档",
       "category": "resources",
-      "icon": "mdn"
+      "icon": "mdn",
+      "recommended": true
     },
     {
       "id": "figma",
@@ -118,7 +111,8 @@
       "url": "https://stackoverflow.com",
       "description": "程序员问答社区",
       "category": "resources",
-      "icon": "stackoverflow"
+      "icon": "stackoverflow",
+      "recommended": false
     },
     {
       "id": "dribbble",
@@ -135,7 +129,8 @@
       "url": "https://www.midjourney.com",
       "description": "AI 图像生成工具",
       "category": "ai",
-      "icon": "midjourney"
+      "icon": "midjourney",
+      "recommended": true
     },
     {
       "id": "vercel",
@@ -152,15 +147,6 @@
       "description": "新一代协作与知识管理工具",
       "category": "tools",
       "icon": "notion",
-      "recommended": true
-    },
-    {
-      "id": "juejin",
-      "title": "掘金",
-      "url": "https://juejin.cn",
-      "description": "中文技术社区",
-      "category": "community",
-      "icon": "juejin",
       "recommended": false
     },
     {
@@ -169,7 +155,8 @@
       "url": "https://react.dev",
       "description": "用于构建用户界面的 JavaScript 库",
       "category": "resources",
-      "icon": "react"
+      "icon": "react",
+      "recommended": false
     },
     {
       "id": "nextjs",
@@ -177,7 +164,8 @@
       "url": "https://nextjs.org",
       "description": "React 框架，用于生产环境",
       "category": "resources",
-      "icon": "nextjs"
+      "icon": "nextjs",
+      "recommended": false
     },
     {
       "id": "typescript",
@@ -186,7 +174,7 @@
       "description": "JavaScript 的超集",
       "category": "resources",
       "icon": "typescript",
-      "recommended": true
+      "recommended": false
     },
     {
       "id": "tailwind",
@@ -221,7 +209,7 @@
       "description": "AI 编程助手",
       "category": "ai",
       "icon": "github",
-      "recommended": false
+      "recommended": true
     },
     {
       "id": "canva",
@@ -240,7 +228,7 @@
       "description": "创意作品展示平台",
       "category": "design",
       "icon": "behance",
-      "recommended": false
+      "recommended": true
     },
     {
       "id": "netlify",
@@ -249,7 +237,7 @@
       "description": "现代网站部署平台",
       "category": "dev",
       "icon": "netlify",
-      "recommended": false
+      "recommended": true
     },
     {
       "id": "railway",
@@ -273,7 +261,8 @@
       "url": "https://www.producthunt.com",
       "description": "发现新产品的平台",
       "category": "community",
-      "icon": "producthunt"
+      "icon": "producthunt",
+      "recommended": false
     }
   ]
 }
