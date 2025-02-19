@@ -47,6 +47,12 @@
       "description": "",
       "icon": "FolderIcon",
       "id": "4krd6y2vx"
+    },
+    {
+      "name": "测试分类23",
+      "description": "测试描述",
+      "icon": "BookmarkIcon",
+      "id": "ehtmn5ngm"
     }
   ],
   "links": [
