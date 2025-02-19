@@ -37,12 +37,6 @@
       "icon": "UserGroupIcon"
     },
     {
-      "name": "测试分类",
-      "description": "测试描述",
-      "icon": "BookmarkIcon",
-      "id": "q86yhr711"
-    },
-    {
       "name": "测试分类2",
       "description": "",
       "icon": "FolderIcon",
