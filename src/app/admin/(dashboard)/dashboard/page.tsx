@@ -91,7 +91,7 @@ export default function DashboardPage() {
     }
   }
 
-  // 添加处理添加分类的函数
+  // 修改处理添加分类的函数
   const handleAddCategory = async (category: Omit<Category, 'id'>) => {
     try {
       // 检查分类名称是否已存在
@@ -113,7 +113,8 @@ export default function DashboardPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to add category')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to add category')
       }
 
       const newCategory = await response.json()
@@ -121,7 +122,7 @@ export default function DashboardPage() {
       showMessage('success', '分类添加成功')
     } catch (error) {
       console.error('Error adding category:', error)
-      showMessage('error', '添加分类失败')
+      showMessage('error', `添加分类失败: ${error instanceof Error ? error.message : '未知错误'}`)
     }
   }
 

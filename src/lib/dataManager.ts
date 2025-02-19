@@ -8,8 +8,8 @@ const REPO_OWNER = process.env.GITHUB_OWNER
 const REPO_NAME = process.env.GITHUB_REPO
 const FILE_PATH = 'data/navigation.json'
 
-// 判断是否使用 GitHub 存储
-const useGitHub = process.env.NODE_ENV === 'production' && GITHUB_TOKEN && REPO_OWNER && REPO_NAME
+// 修改判断逻辑
+const useGitHub = Boolean(GITHUB_TOKEN && REPO_OWNER && REPO_NAME)
 
 // 从 GitHub 读取数据
 async function readFromGitHub(): Promise<NavData> {
@@ -111,10 +111,23 @@ async function writeToLocal(data: NavData): Promise<void> {
 
 // 统一的读取接口
 export const readData = async (): Promise<NavData> => {
-  return useGitHub ? readFromGitHub() : readFromLocal()
+  try {
+    if (useGitHub) {
+      return await readFromGitHub()
+    } else {
+      return await readFromLocal()
+    }
+  } catch (error) {
+    console.error('Error reading data:', error)
+    return { categories: [], links: [] }
+  }
 }
 
 // 统一的写入接口
 export const writeData = async (data: NavData): Promise<void> => {
-  return useGitHub ? writeToGitHub(data) : writeToLocal(data)
+  if (useGitHub) {
+    await writeToGitHub(data)
+  } else {
+    await writeToLocal(data)
+  }
 } 

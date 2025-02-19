@@ -45,7 +45,7 @@ export async function GET() {
 // POST 请求处理（添加新分类）
 export async function POST(request: Request) {
   try {
-    const data = await getData()
+    const data = await dataManager.readData() // 使用统一的读取接口
     const newCategory = await request.json()
     
     // 生成新的 ID
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     
     // 将新分类添加到数组中
     data.categories.push(newCategory)
-    await writeData(data)
+    await dataManager.writeData(data) // 使用统一的写入接口
     
     return NextResponse.json(newCategory)
   } catch (error) {
