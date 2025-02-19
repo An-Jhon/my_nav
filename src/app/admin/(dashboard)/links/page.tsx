@@ -18,10 +18,14 @@ export default function LinksPage() {
     }
   }, [router])
 
-  // 加载数据
+  // 修改 useEffect 钩子来加载数据
+  useEffect(() => {
+    loadData()
+  }, []) // 添加初始加载
+
+  // 修改 loadData 函数
   const loadData = async () => {
     try {
-      // 添加 no-cache 参数确保获取最新数据
       const response = await fetch('/api/navigation', {
         cache: 'no-store',
         headers: {
@@ -51,7 +55,7 @@ export default function LinksPage() {
     setTimeout(() => setMessage(null), 1000)
   }
 
-  // 处理添加链接
+  // 修改 handleAddLink 函数
   const handleAddLink = async (link: Omit<NavLink, 'id' | 'createdAt'>) => {
     try {
       const response = await fetch('/api/links', {
@@ -63,7 +67,8 @@ export default function LinksPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to add link')
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to add link')
       }
 
       const newLink = await response.json()
