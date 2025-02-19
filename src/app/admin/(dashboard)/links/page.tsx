@@ -19,23 +19,31 @@ export default function LinksPage() {
   }, [router])
 
   // 加载数据
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const response = await fetch('/api/navigation')
-        const data = await response.json()
-        const sortedLinks = [...data.links].sort((a, b) => 
-          (b.createdAt || 0) - (a.createdAt || 0)
-        )
-        setLinks(sortedLinks)
-        setCategories(data.categories)
-      } catch (error) {
-        console.error('Error loading data:', error)
-        showMessage('error', '加载数据失败')
+  const loadData = async () => {
+    try {
+      // 添加 no-cache 参数确保获取最新数据
+      const response = await fetch('/api/navigation', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache'
+        }
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to load data')
       }
+      
+      const data = await response.json()
+      const sortedLinks = [...data.links].sort((a, b) => 
+        (b.createdAt || 0) - (a.createdAt || 0)
+      )
+      setLinks(sortedLinks)
+      setCategories(data.categories)
+    } catch (error) {
+      console.error('Error loading data:', error)
+      showMessage('error', '加载数据失败')
     }
-    loadData()
-  }, [])
+  }
 
   // 显示消息
   const showMessage = (type: 'success' | 'error', text: string) => {
@@ -61,6 +69,9 @@ export default function LinksPage() {
       const newLink = await response.json()
       setLinks(prev => [newLink, ...prev])
       showMessage('success', '网址添加成功')
+      
+      // 添加成功后立即重新加载数据
+      await loadData()
     } catch (error) {
       console.error('Error adding link:', error)
       showMessage('error', '添加网址失败')
@@ -107,6 +118,9 @@ export default function LinksPage() {
 
       setLinks(prev => prev.filter(l => l.id !== id))
       showMessage('success', '网址删除成功')
+      
+      // 删除成功后立即重新加载数据
+      await loadData()
     } catch (error) {
       console.error('Error deleting link:', error)
       showMessage('error', '删除网址失败')

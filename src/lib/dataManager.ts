@@ -20,7 +20,10 @@ async function readFromGitHub(): Promise<NavData> {
         headers: {
           'Authorization': `Bearer ${GITHUB_TOKEN}`,
           'Accept': 'application/vnd.github.v3+json',
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
         },
+        cache: 'no-store'
       }
     )
 
