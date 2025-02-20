@@ -170,7 +170,7 @@
       "description": "Anthropic 开发的 AI 助手",
       "category": "ai",
       "icon": "claude",
-      "recommended": true
+      "recommended": false
     },
     {
       "id": "gemini",
