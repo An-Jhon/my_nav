@@ -35,41 +35,9 @@
       "name": "技术社区",
       "description": "程序员交流社区",
       "icon": "UserGroupIcon"
-    },
-    {
-      "name": "测试分类2",
-      "description": "",
-      "icon": "FolderIcon",
-      "id": "4krd6y2vx"
     }
   ],
   "links": [
-    {
-      "title": "百度2",
-      "url": "https://www.baidu.com",
-      "description": "测试描述",
-      "category": "4krd6y2vx",
-      "id": "uaopefov0",
-      "createdAt": 1739932974605
-    },
-    {
-      "title": "百度2",
-      "url": "https://www.baidu.com",
-      "description": "测试描述",
-      "category": "4krd6y2vx",
-      "id": "4qh8eej0q",
-      "createdAt": 1739932963610
-    },
-    {
-      "title": "百度",
-      "url": "https://www.baidu.com",
-      "description": "测试描述",
-      "category": "4krd6y2vx",
-      "id": "qffk713cs",
-      "createdAt": 1739868261388,
-      "clicks": 0,
-      "recommended": false
-    },
     {
       "id": "vscode",
       "title": "VS Code",
