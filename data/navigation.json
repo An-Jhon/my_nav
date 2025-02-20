@@ -46,7 +46,7 @@
       "category": "tools",
       "icon": "vscode",
       "recommended": false,
-      "clicks": 2
+      "clicks": 3
     },
     {
       "id": "github",
