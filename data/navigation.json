@@ -64,7 +64,7 @@
       "description": "OpenAI 开发的 AI 聊天助手",
       "category": "tools",
       "icon": "openai",
-      "recommended": true
+      "recommended": false
     },
     {
       "id": "mdn",
