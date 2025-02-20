@@ -188,7 +188,8 @@
       "description": "AI 编程助手",
       "category": "ai",
       "icon": "github",
-      "recommended": true
+      "recommended": true,
+      "clicks": 1
     },
     {
       "id": "canva",
